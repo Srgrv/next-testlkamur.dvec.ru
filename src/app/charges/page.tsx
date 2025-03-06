@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchCharges } from "@/store/slices/payments-slice";
+import ProtectedLayout from "@/components/ProtectedLayout";
 
 function ChargesPage() {
   const { charges, error, loadingCharges } = useSelector(
@@ -58,7 +59,7 @@ function ChargesPage() {
   }
 
   return (
-    <>
+    <ProtectedLayout>
       <Card className="w-full px-4 sm:px-6 lg:px-10 mx-auto">
         <CardContent>
           <PeriodSelector />
@@ -94,7 +95,7 @@ function ChargesPage() {
           </Table>
         </CardContent>
       </Card>
-    </>
+    </ProtectedLayout>
   );
 }
 
