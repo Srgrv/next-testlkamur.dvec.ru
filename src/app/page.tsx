@@ -28,7 +28,7 @@ function HomePage() {
   if (error) {
     return (
       <div className="flex justify-center items-center h-screen">
-        Ошибка: {error}
+        Ошибка: Ошибка: что-то пошло не так
       </div>
     );
   }

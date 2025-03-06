@@ -48,9 +48,7 @@ export const fetchAccounts = createAsyncThunk(
         return rejectWithValue(data.msg);
       }
     } catch (error) {
-      return rejectWithValue(
-        "Ошибка сети. Пожалуйста, проверьте подключение к интернету."
-      );
+      return console.log(error);
     }
   }
 );

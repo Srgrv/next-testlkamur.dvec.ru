@@ -109,10 +109,7 @@ export const fetchCharges = createAsyncThunk<Charge[], FetchChargesArgs>(
         return rejectWithValue(data.msg);
       }
     } catch (error) {
-      return rejectWithValue({
-        success: false,
-        msg: "Ошибка сети. Пожалуйста, проверьте подключение к интернету.",
-      });
+      return console.log(error);
     }
   }
 );
@@ -163,9 +160,7 @@ export const fetchPayments = createAsyncThunk(
 
       return data.result;
     } catch (error) {
-      return rejectWithValue(
-        "Ошибка сети. Пожалуйста, проверьте подключение к интернету."
-      );
+      return console.log(error);
     }
   }
 );

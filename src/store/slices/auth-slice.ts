@@ -44,9 +44,7 @@ export const login = createAsyncThunk(
 
       return data;
     } catch (error) {
-      return rejectWithValue(
-        "Ошибка сети. Пожалуйста, проверьте подключение к интернету."
-      );
+      return console.log(error);
     }
   }
 );
