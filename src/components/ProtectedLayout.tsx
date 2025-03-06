@@ -12,13 +12,19 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const { token } = useSelector((state: RootState) => state.auth);
+  const { isInitialized, token } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   useEffect(() => {
     if (!token) {
       router.push("/login");
     }
-  }, [, token, router]);
+  }, [isInitialized, token, router]);
+
+  if (!token) {
+    return null;
+  }
 
   return (
     <>
