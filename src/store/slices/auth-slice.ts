@@ -38,8 +38,6 @@ export const login = createAsyncThunk(
 
       const data = await response.json();
 
-      console.log(data);
-
       if (!data.success) {
         return rejectWithValue(data.msg || "Ошибка авторизации");
       }
