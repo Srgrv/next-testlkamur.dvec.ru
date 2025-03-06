@@ -2,7 +2,7 @@
 
 import { Provider } from "react-redux";
 import { store } from "@/store";
-import Header from "./Header";
+// import Header from "./Header";
 
 export default function ReduxProvider({
   children,
@@ -11,7 +11,7 @@ export default function ReduxProvider({
 }) {
   return (
     <Provider store={store}>
-      <Header />
+      {/* <Header /> */}
       {children}
     </Provider>
   );
