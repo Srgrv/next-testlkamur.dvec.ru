@@ -93,6 +93,7 @@ export const fetchCharges = createAsyncThunk<Charge[], FetchChargesArgs>(
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Origin: "https://next-testlkamur-dvec-ru.vercel.app",
         },
         body: JSON.stringify({
           ExtToken: token,
@@ -143,6 +144,7 @@ export const fetchPayments = createAsyncThunk(
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Origin: "https://next-testlkamur-dvec-ru.vercel.app",
         },
         body: JSON.stringify({
           ExtToken: token,

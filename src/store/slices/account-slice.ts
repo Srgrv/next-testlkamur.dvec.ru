@@ -36,6 +36,7 @@ export const fetchAccounts = createAsyncThunk(
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Origin: "https://next-testlkamur-dvec-ru.vercel.app",
         },
         body: JSON.stringify({ ExtToken: token }),
       });
