@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     const data = await response.json();
     return NextResponse.json(data, { status: response.status });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Ошибка при запросе к API" },
       { status: 500 }
