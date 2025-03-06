@@ -12,12 +12,16 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
 import { logout } from "@/store/slices/auth-slice";
 import { Menu, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 function Header() {
   const dispatch = useDispatch<AppDispatch>();
 
+  const router = useRouter();
+
   const handleLogout = () => {
     dispatch(logout());
+    router.push("/login");
   };
 
   return (
