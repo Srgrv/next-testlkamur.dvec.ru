@@ -12,7 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { RootState, AppDispatch } from "@/store";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchPayments } from "@/store/slices/payments-slice";
@@ -32,7 +32,7 @@ function PaymentsPage() {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const handlefetchPayments = () => {
+  const handlefetchPayments = useCallback(() => {
     const fromPeriod = selectedFromPeriod.value;
     const toPeriod = selectedToPeriod.value;
     const subscrId = 886458;
@@ -45,11 +45,23 @@ function PaymentsPage() {
         selectedToYear,
       })
     );
-  };
+  }, [
+    dispatch,
+    selectedFromPeriod,
+    selectedFromYear,
+    selectedToPeriod,
+    selectedToYear,
+  ]);
 
   useEffect(() => {
     handlefetchPayments();
-  }, [selectedFromPeriod, selectedFromYear, selectedToPeriod, selectedToYear]);
+  }, [
+    selectedFromPeriod,
+    selectedFromYear,
+    selectedToPeriod,
+    selectedToYear,
+    handlefetchPayments,
+  ]);
 
   if (loadingPayments) {
     return (
@@ -67,7 +79,7 @@ function PaymentsPage() {
 
           {error && (
             <div className="flex justify-center items-center h-screen">
-              Ошибка: {error}
+              Ошибка: что-то пошло не так
             </div>
           )}
           <Table>
