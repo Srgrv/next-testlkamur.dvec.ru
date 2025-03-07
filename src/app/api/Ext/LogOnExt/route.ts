@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   const targetUrl = "https://testlkamur.dvec.ru/Ext/LogOnExt";
 
   try {
@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
 
     console.log("🔹 Отправляем запрос на:", targetUrl);
 
+    // Отправляем запрос на целевой сервер
     const response = await fetch(targetUrl, {
       method: "POST",
       headers,
@@ -33,14 +34,42 @@ export async function POST(req: NextRequest) {
 
     console.log("🔹 Ответ от сервера:", response.status, response.statusText);
 
-    const data = await response.json();
-    console.log("📩 Данные от сервера:", JSON.stringify(data, null, 2));
+    // Логируем текстовый ответ от сервера
+    const data = await response.text();
+    console.log("📩 Тело ответа от сервера:", data);
 
-    return NextResponse.json(data, { status: response.status });
-  } catch (error) {
-    console.error("❌ Ошибка при запросе к API:", error);
+    try {
+      // Пробуем распарсить текст как JSON
+      const jsonData = JSON.parse(data);
+      console.log("📩 Данные от сервера:", JSON.stringify(jsonData, null, 2));
+
+      // Возвращаем данные обратно клиенту
+      return NextResponse.json(jsonData, { status: response.status });
+    } catch (error: any) {
+      // Обработка ошибки при парсинге
+      console.error("Ошибка при разборе данных от сервера:", error);
+      return NextResponse.json(
+        {
+          error: "Ответ от сервера не является валидным JSON",
+          details: error.message,
+        },
+        { status: 500 }
+      );
+    }
+  } catch (error: unknown) {
+    // Обработка ошибок при запросе
+    if (error instanceof Error) {
+      console.error("❌ Ошибка при запросе к API:", error.message);
+      return NextResponse.json(
+        { error: "Ошибка при запросе к API", details: error.message },
+        { status: 500 }
+      );
+    }
+
+    // Если ошибка не является экземпляром Error
+    console.error("❌ Неизвестная ошибка:", error);
     return NextResponse.json(
-      { error: "Ошибка при запросе к API" },
+      { error: "Неизвестная ошибка при запросе к API" },
       { status: 500 }
     );
   }
