@@ -12,6 +12,9 @@ export async function POST(req: NextRequest) {
 
     const headers: HeadersInit = {
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*", // Разрешаем доступ для всех доменов
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE", // Указываем разрешенные методы
+      "Access-Control-Allow-Headers": "Content-Type, Authorization, Origin", // Разрешаем заголовки
     };
 
     const authHeader = req.headers.get("authorization");
